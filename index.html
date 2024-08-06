@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .messages {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .message {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            width: 90%;
+            box-sizing: border-box;
+            text-align: left;
+            transition: opacity 1s;
+        }
+        .message.show {
+            display: block;
+            opacity: 1;
+        }
+        .message.hide {
+            opacity: 0;
+        }
+        .pay-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #00b200; /* 设置按钮背景颜色 */
+            color: #fff; /* 设置按钮文字颜色 */
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="local-image.png" alt="描述图片内容" width="100%"> <!-- 插入本地图片 -->
+        <div class="messages" id="messages">
+            <!-- 动态支付内容 -->
+            <div class="message">弘毅*** 刚刚支付了9.9元</div>
+            <div class="message">待到风云起**支付了9.9元</div>
+            <div class="message">北方挽歌**支付了9.9元</div>
+            <div class="message">亡城孤影**支付了9.9元</div>
+            <div class="message">故渊**支付了9.9元</div>
+            <div class="message">豪哥**支付了9.9元</div>
+            <!-- 你可以添加更多消息 -->
+        </div>
+    </div>
+    <button class="pay-button" onclick="goToPayment()">支付9.9元后领取</button> <!-- 固定在底部的支付按钮 -->
+    <script>
+        function showMessages() {
+            const messages = document.querySelectorAll('.message');
+            let index = 0;
+
+            function showNextMessage() {
+                if (index > 0) {
+                    messages[(index - 1) % messages.length].classList.remove('show');
+                    messages[(index - 1) % messages.length].classList.add('hide');
+                }
+                messages[index % messages.length].classList.remove('hide');
+                messages[index % messages.length].classList.add('show');
+                index++;
+            }
+
+            showNextMessage();
+            setInterval(showNextMessage, 4000);
+        }
+
+        function goToPayment() {
+            // 跳转到支付页面的逻辑
+            window.location.href = 'http://your-payment-url.com';
+        }
+
+        window.onload = showMessages;
+    </script>
+</body>
+</html>
